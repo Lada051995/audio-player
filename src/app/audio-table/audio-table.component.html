@@ -1,0 +1,26 @@
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Наименование звука </th>
+      <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="file">
+      <th mat-header-cell *matHeaderCellDef> Имя файла звукозаписи </th>
+      <td mat-cell *matCellDef="let element"> {{ element.file.substring(element.file.lastIndexOf('/') + 1) }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectedTrack = row"></tr>
+  </table>
+</div>
+
+<div class="audio-player" *ngIf="selectedTrack">
+  <audio controls [src]="selectedTrack.file"></audio>
+</div>
